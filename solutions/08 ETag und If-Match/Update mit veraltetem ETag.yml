@@ -1,0 +1,34 @@
+info:
+  name: "Update mit veraltetem ETag"
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/products/{{productId}}"
+  headers:
+    - name: If-Match
+      value: "{{etag}}"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Bruno-ETag-Birne",
+        "price": 9.99
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Veralteter ETag wird mit 412 abgelehnt", function () {
+          expect(res.getStatus()).to.equal(412);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

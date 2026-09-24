@@ -1,0 +1,25 @@
+info:
+  name: "Stornierte Bestellung kaufen"
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{host}}{{purchaseLink}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Ungültiger Zustandsübergang wird mit 403 abgelehnt", function () {
+          expect(res.getStatus()).to.equal(403);
+          expect(res.getBody().detail).to.equal("The order is cancelled");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

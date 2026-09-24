@@ -1,0 +1,49 @@
+info:
+  name: "Bestellung anlegen"
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/customers/{{customerId}}/orders"
+  body:
+    type: json
+    data: |-
+      {
+        "items": [
+          { "product": 4, "quantity": 2 },
+          { "product": 1, "quantity": 3 }
+        ]
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const order = res.getBody();
+        bru.setVar("orderId", order.id);
+        bru.setVar("orderTotal", order.total);
+        bru.setVar("itemsLink", order.items_link);
+        bru.setVar("purchaseLink", order.actions.purchase.link);
+        bru.setVar("cancelLink", order.actions.cancel.link);
+    - type: tests
+      code: |-
+        const order = res.getBody();
+
+        test("Bestellung ist angelegt", function () {
+          expect(res.getStatus()).to.equal(201);
+          expect(order.state).to.equal("CREATED");
+        });
+
+        test("Bestellung bietet purchase und cancel an", function () {
+          expect(order.actions).to.have.all.keys("purchase", "cancel");
+          expect(order.actions.purchase.method).to.equal("PUT");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

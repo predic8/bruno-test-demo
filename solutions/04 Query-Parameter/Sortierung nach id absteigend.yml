@@ -1,0 +1,36 @@
+info:
+  name: "Sortierung nach id absteigend"
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products?sort=id&order=desc&limit=10"
+  params:
+    - name: sort
+      value: "id"
+      type: query
+    - name: order
+      value: "desc"
+      type: query
+    - name: limit
+      value: "10"
+      type: query
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("ids sind absteigend sortiert", function () {
+          const ids = res.getBody().products.map((p) => p.id);
+          const sorted = [...ids].sort((a, b) => b - a);
+          expect(ids).to.deep.equal(sorted);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

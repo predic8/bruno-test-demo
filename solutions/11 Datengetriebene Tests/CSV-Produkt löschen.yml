@@ -1,0 +1,29 @@
+info:
+  name: "CSV-Produkt löschen"
+  type: http
+  seq: 2
+
+http:
+  method: DELETE
+  url: "{{baseUrl}}/products/{{productId}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        // Ohne CSV-Datei (z. B. beim Lauf der ganzen Collection) überspringen
+        if (!bru.runner.iterationData.has("name") || bru.runner.iterationData.has("expectedStatus")) {
+          bru.runner.skipRequest();
+        }
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

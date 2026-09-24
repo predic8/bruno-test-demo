@@ -1,0 +1,33 @@
+info:
+  name: "Produktliste prüfen"
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers["content-type"]
+      operator: contains
+      value: "application/json"
+    - expression: res.body.meta.count
+      operator: gt
+      value: "0"
+    - expression: res.body.products
+      operator: isArray
+    - expression: res.responseTime
+      operator: lt
+      value: "2000"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

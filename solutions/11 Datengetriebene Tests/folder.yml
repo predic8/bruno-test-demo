@@ -1,0 +1,13 @@
+info:
+  name: "11 Datengetriebene Tests"
+  type: folder
+  seq: 11
+
+request:
+  auth: inherit
+
+docs: |-
+  Ausführen mit CSV-Datei:
+
+      bru run "11 Datengetriebene Tests" --env fruitshop --csv-file-path data/produkte.csv
+      bru run "11 Datengetriebene Tests" --env fruitshop --csv-file-path data/grenzwerte.csv

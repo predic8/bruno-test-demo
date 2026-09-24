@@ -1,0 +1,22 @@
+info:
+  name: "Aufräumen Bestellung"
+  type: http
+  seq: 8
+
+http:
+  method: PUT
+  url: "{{host}}{{cancelLink}}"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.body.state
+      operator: eq
+      value: "CANCELED"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

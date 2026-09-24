@@ -1,0 +1,7 @@
+name,price,expectedStatus
+Bruno-Grenze-Null,0,201
+Bruno-Grenze-Max,1000,201
+Bruno-Grenze-Zu-Teuer,1000.01,400
+Bruno-Grenze-Negativ,-1,400
+Bruno-Name-Genau-30-Zeichen-xx,1,201
+Bruno-Name-Mit-Mehr-Als-30-Zeichen,1,400

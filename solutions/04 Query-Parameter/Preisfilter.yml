@@ -1,0 +1,43 @@
+info:
+  name: "Preisfilter"
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products?price=<2&limit=5"
+  params:
+    - name: price
+      value: "<2"
+      type: query
+    - name: limit
+      value: "5"
+      type: query
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        // Die Liste enthält keine Preise -> Details jedes Produkts nachladen
+        const products = res.getBody().products;
+        const details = [];
+        for (const p of products) {
+          const r = await bru.sendRequest({ method: "GET", url: bru.getEnvVar("host") + p.self_link });
+          details.push(r.data);
+        }
+
+        test("Filter liefert Treffer", function () {
+          expect(products.length).to.be.above(0);
+        });
+
+        test("Alle Preise sind kleiner als 2", function () {
+          details.forEach((d) => expect(d.price, d.name).to.be.below(2));
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

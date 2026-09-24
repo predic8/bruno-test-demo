@@ -1,0 +1,39 @@
+info:
+  name: "Update mit gültigem ETag"
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/products/{{productId}}"
+  headers:
+    - name: If-Match
+      value: "{{etag}}"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Bruno-ETag-Birne",
+        "price": 1.5
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Update erfolgreich", function () {
+          expect(res.getStatus()).to.equal(200);
+          expect(res.getBody().price).to.equal(1.5);
+        });
+
+        test("Neue Version hat einen neuen ETag", function () {
+          expect(res.getHeader("etag")).to.not.equal(bru.getVar("etag"));
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

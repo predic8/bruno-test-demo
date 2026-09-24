@@ -1,0 +1,7 @@
+info:
+  name: "06 CRUD mit Variablen"
+  type: folder
+  seq: 6
+
+request:
+  auth: inherit

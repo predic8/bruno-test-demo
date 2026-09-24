@@ -1,0 +1,25 @@
+info:
+  name: "Produkt kennt seinen Vendor"
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products/{{productId}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Vendor ist am Produkt eingetragen", function () {
+          const vendorIds = res.getBody().vendors.map((v) => v.id);
+          expect(vendorIds).to.include(bru.getVar("vendorId"));
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

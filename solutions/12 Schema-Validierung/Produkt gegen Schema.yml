@@ -1,0 +1,53 @@
+info:
+  name: "Produkt gegen Schema"
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products/4"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const tv4 = require("tv4");
+
+        // Aus der OpenAPI: components.schemas.Product
+        const productSchema = {
+          type: "object",
+          required: ["name", "price"],
+          properties: {
+            id: { type: "integer", minimum: 1 },
+            name: { type: "string", maxLength: 30 },
+            price: { type: "number", minimum: 0, maximum: 1000 },
+            unit: { type: "string" },
+            vendors: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "integer" },
+                  name: { type: "string", maxLength: 30 },
+                  self_link: { type: "string" }
+                }
+              }
+            },
+            image_link: { type: "string" },
+            self_link: { type: "string" },
+            modified_at: { type: "string" }
+          }
+        };
+
+        test("Produkt entspricht dem Product-Schema", function () {
+          const valid = tv4.validate(res.getBody(), productSchema);
+          expect(valid, tv4.error && tv4.error.message).to.be.true;
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

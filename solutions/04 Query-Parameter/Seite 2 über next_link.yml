@@ -1,0 +1,29 @@
+info:
+  name: "Seite 2 über next_link"
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{host}}{{nextLink}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Seite 2 überschneidet sich nicht mit Seite 1", function () {
+          const page1 = bru.getVar("page1Ids");
+          res.getBody().products.forEach((p) => expect(page1).to.not.include(p.id));
+        });
+
+        test("Seite 2 hat einen previous_link", function () {
+          expect(res.getBody().meta.previous_link).to.contain("start=1");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

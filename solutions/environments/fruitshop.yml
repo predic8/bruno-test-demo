@@ -1,0 +1,14 @@
+name: fruitshop
+variables:
+  - name: baseUrl
+    value: https://api.predic8.de/shop/v2
+  - name: host
+    value: https://api.predic8.de
+  - name: customerId
+    value: "1"
+  - name: httpbinUrl
+    value: https://httpbin.org
+  - name: authUser
+    value: kursteilnehmer
+  - name: authPassword
+    value: "{{process.env.HTTPBIN_PASSWORD}}"

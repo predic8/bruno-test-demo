@@ -1,0 +1,51 @@
+info:
+  name: "404 gegen ProblemDetails"
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products/999999"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const tv4 = require("tv4");
+        const body = res.getBody();
+
+        // Wörtlich aus der OpenAPI: components.schemas.ProblemDetails
+        const problemDetails = {
+          type: "object",
+          properties: {
+            type: { type: "string" },
+            title: { type: "string" },
+            status: { type: "integer", minimum: 200 },
+            detail: { type: "string", maxLength: 500 }
+          }
+        };
+
+        // Strengere Variante nach RFC 9457: type, title und status sind Pflicht
+        const strictProblemDetails = Object.assign({}, problemDetails, {
+          required: ["type", "title", "status"],
+          additionalProperties: false
+        });
+
+        test("Spec-Schema ist zu locker: auch die Spring-Fehlerseite ist 'gültig'", function () {
+          expect(tv4.validate(body, problemDetails)).to.be.true;
+        });
+
+        test("Strenges Schema deckt die Abweichung zur Spec auf", function () {
+          const result = tv4.validateMultiple(body, strictProblemDetails);
+          expect(result.valid).to.be.false;
+          const messages = result.errors.map((e) => e.message).join(" | ");
+          expect(messages).to.contain("title");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

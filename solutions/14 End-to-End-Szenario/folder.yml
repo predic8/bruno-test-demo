@@ -1,0 +1,13 @@
+info:
+  name: "14 End-to-End-Szenario"
+  type: folder
+  seq: 14
+
+request:
+  auth: inherit
+  scripts:
+    - type: before-request
+      code: |-
+        if (!bru.getVar("runId")) {
+          bru.setVar("runId", Date.now().toString(36));
+        }

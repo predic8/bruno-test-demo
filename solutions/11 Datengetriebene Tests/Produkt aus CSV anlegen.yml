@@ -1,0 +1,44 @@
+info:
+  name: "Produkt aus CSV anlegen"
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/products"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "{{name}}",
+        "price": {{price}}
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        // Ohne CSV-Datei (z. B. beim Lauf der ganzen Collection) überspringen
+        if (!bru.runner.iterationData.has("name") || bru.runner.iterationData.has("expectedStatus")) {
+          bru.runner.skipRequest();
+        }
+    - type: after-response
+      code: |-
+        bru.setVar("productId", res.getBody().id);
+    - type: tests
+      code: |-
+        const row = bru.runner.iterationData.get();
+
+        test(`Produkt ${row.name} angelegt`, function () {
+          expect(res.getStatus()).to.equal(201);
+          expect(res.getBody().name).to.equal(row.name);
+          expect(res.getBody().price).to.equal(Number(row.price));
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,44 @@
+info:
+  name: "Grenzwerte aus CSV"
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{baseUrl}}/products"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "{{name}}",
+        "price": {{price}}
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        // Nur mit data/grenzwerte.csv ausführen
+        if (!bru.runner.iterationData.has("expectedStatus")) {
+          bru.runner.skipRequest();
+        }
+    - type: tests
+      code: |-
+        const row = bru.runner.iterationData.get();
+
+        test(`${row.name} / ${row.price} -> ${row.expectedStatus}`, function () {
+          expect(res.getStatus()).to.equal(Number(row.expectedStatus));
+        });
+
+        // Versehentlich angelegte Produkte sofort wieder löschen
+        if (res.getStatus() === 201) {
+          await bru.sendRequest({ method: "DELETE", url: bru.getEnvVar("baseUrl") + "/products/" + res.getBody().id });
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
