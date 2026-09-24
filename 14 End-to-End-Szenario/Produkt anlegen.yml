@@ -1,0 +1,33 @@
+info:
+  name: "Produkt anlegen"
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{baseUrl}}/products"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Bruno-E2E-{{runId}}",
+        "price": 2.5
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("productId", res.getBody().id);
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

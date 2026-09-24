@@ -1,0 +1,24 @@
+info:
+  name: "Zufallsprodukt lesen"
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products/{{productId}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Round-Trip: gelesene Daten = gesendete Daten", function () {
+          expect(res.getBody()).to.include(bru.getVar("expectedProduct"));
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

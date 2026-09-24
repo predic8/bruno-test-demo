@@ -1,0 +1,7 @@
+info:
+  name: "07 Pre-Request-Skripte"
+  type: folder
+  seq: 7
+
+request:
+  auth: inherit

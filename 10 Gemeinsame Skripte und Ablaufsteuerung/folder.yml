@@ -1,0 +1,26 @@
+info:
+  name: "10 Gemeinsame Skripte und Ablaufsteuerung"
+  type: folder
+  seq: 10
+
+request:
+  auth: inherit
+  scripts:
+    - type: before-request
+      code: |-
+        // Läuft vor JEDEM Request in diesem Ordner
+        req.setHeader("X-Test-Suite", "bruno-tutorial");
+    - type: tests
+      code: |-
+        // Läuft nach JEDEM Request in diesem Ordner
+        test("[Ordner] Kein Serverfehler", function () {
+          expect(res.getStatus()).to.be.below(500);
+        });
+
+        test("[Ordner] Antwortzeit unter 2 Sekunden", function () {
+          expect(res.getResponseTime()).to.be.below(2000);
+        });
+
+        test("[Ordner] Antwort ist JSON", function () {
+          expect(res.getHeader("content-type")).to.contain("json");
+        });

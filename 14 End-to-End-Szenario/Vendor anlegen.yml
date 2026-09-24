@@ -1,0 +1,34 @@
+info:
+  name: "Vendor anlegen"
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/vendors"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Bruno-Vendor-{{runId}}"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("vendorId", res.getBody().id);
+    - type: tests
+      code: |-
+        test("Vendor angelegt", function () {
+          expect(res.getStatus()).to.equal(201);
+          expect(res.getHeader("location")).to.contain("/vendors/" + res.getBody().id);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

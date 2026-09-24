@@ -1,0 +1,39 @@
+info:
+  name: "Produktdetails"
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products/4"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const body = res.getBody();
+
+        test("Pflichtfelder vorhanden", function () {
+          expect(body).to.include.all.keys("id", "name", "price");
+        });
+
+        test("Preis liegt zwischen 0 und 1000", function () {
+          expect(body.price).to.be.a("number").within(0, 1000);
+        });
+
+        test("Response hat einen ETag-Header", function () {
+          expect(res.getHeader("etag")).to.match(/^".+"$/);
+        });
+
+        test("Vendors haben id und name", function () {
+          expect(body.vendors).to.be.an("array").that.is.not.empty;
+          body.vendors.forEach((v) => expect(v).to.include.keys("id", "name"));
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

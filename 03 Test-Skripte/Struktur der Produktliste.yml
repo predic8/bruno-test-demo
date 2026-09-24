@@ -1,0 +1,46 @@
+info:
+  name: "Struktur der Produktliste"
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products?limit=3"
+  params:
+    - name: limit
+      value: "3"
+      type: query
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status ist 200", function () {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+        test("Höchstens 3 Produkte (limit=3)", function () {
+          const products = res.getBody().products;
+          expect(products).to.be.an("array");
+          expect(products.length).to.be.at.most(3);
+        });
+
+        test("Jedes Produkt hat id, name und self_link", function () {
+          res.getBody().products.forEach((p) => {
+            expect(p).to.have.property("id").that.is.a("number");
+            expect(p).to.have.property("name").that.is.a("string");
+            expect(p.self_link).to.equal("/shop/v2/products/" + p.id);
+          });
+        });
+
+        test("meta.limit spiegelt den Query-Parameter", function () {
+          expect(res.getBody().meta.limit).to.equal(3);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

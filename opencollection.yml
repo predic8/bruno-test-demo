@@ -1,0 +1,18 @@
+opencollection: 1.0.0
+
+info:
+  name: Fruit Shop Tests (Lösungen)
+
+docs:
+  content: |
+    Musterlösungen zum Tutorial "API-Testing mit Bruno".
+    Getestet wird die öffentliche Fruit Shop API: https://api.predic8.de/shop/v2
+
+    Ausführen: bru run -r --env fruitshop
+  type: text/markdown
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

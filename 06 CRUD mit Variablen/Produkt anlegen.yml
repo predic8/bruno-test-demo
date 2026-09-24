@@ -1,0 +1,42 @@
+info:
+  name: "Produkt anlegen"
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/products"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Bruno-Kiwi",
+        "price": 1.49
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("productId", res.getBody().id);
+    - type: tests
+      code: |-
+        test("Status ist 201 Created", function () {
+          expect(res.getStatus()).to.equal(201);
+        });
+
+        test("Location-Header zeigt auf das neue Produkt", function () {
+          expect(res.getHeader("location")).to.match(new RegExp("/products/" + res.getBody().id + "$"));
+        });
+
+        test("Body enthält die gesendeten Daten", function () {
+          expect(res.getBody()).to.include({ name: "Bruno-Kiwi", price: 1.49 });
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

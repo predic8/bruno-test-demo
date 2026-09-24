@@ -1,0 +1,32 @@
+info:
+  name: "Produkt ersetzen"
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/products/{{productId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Bruno-Gold-Kiwi",
+        "price": 2.99
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("PUT ersetzt Name und Preis", function () {
+          expect(res.getStatus()).to.equal(200);
+          expect(res.getBody()).to.include({ name: "Bruno-Gold-Kiwi", price: 2.99 });
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,35 @@
+info:
+  name: "Coconut prüfen"
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/products/4"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.name
+      operator: eq
+      value: "Coconut"
+    - expression: res.body.unit
+      operator: eq
+      value: "€"
+    - expression: res.body.price
+      operator: isNumber
+    - expression: res.body.vendors
+      operator: isArray
+    - expression: res.body.image_link
+      operator: endsWith
+      value: "/products/4/image"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

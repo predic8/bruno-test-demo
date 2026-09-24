@@ -1,0 +1,10 @@
+info:
+  name: "13 Authentifizierung"
+  type: folder
+  seq: 13
+
+request:
+  auth:
+    type: basic
+    username: "{{authUser}}"
+    password: "{{authPassword}}"

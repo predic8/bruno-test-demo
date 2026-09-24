@@ -1,0 +1,24 @@
+info:
+  name: "Bestellung stornieren"
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{host}}{{cancelLink}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status wechselt auf CANCELED", function () {
+          expect(res.getBody().state).to.equal("CANCELED");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="Alle Produkte abrufen" file="01 Erster Request/Alle Produkte abrufen.yml" errors="0" failures="0" skipped="0" tests="0" timestamp="2026-09-24T13:38:59.760" hostname="Mac.digi.box" time="0.131"/>
+  <testsuite name="Rambutan suchen" file="01 Erster Request/Rambutan suchen.yml" errors="0" failures="0" skipped="0" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.072"/>
+  <testsuite name="Rambutan Details" file="01 Erster Request/Rambutan Details.yml" errors="0" failures="0" skipped="0" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.080"/>
+  <testsuite name="Rambutan Bild" file="01 Erster Request/Rambutan Bild.yml" errors="0" failures="0" skipped="0" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.265"/>
+  <testsuite name="Produktliste prüfen" file="02 Assertions/Produktliste prüfen.yml" errors="0" failures="0" skipped="0" tests="5" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.124">
+    <testcase name="res.status eq 200" status="pass" classname="02 Assertions/Produktliste prüfen" time="0.025"/>
+    <testcase name="res.headers[&quot;content-type&quot;] contains application/json" status="pass" classname="02 Assertions/Produktliste prüfen" time="0.025"/>
+    <testcase name="res.body.meta.count gt 0" status="pass" classname="02 Assertions/Produktliste prüfen" time="0.025"/>
+    <testcase name="res.body.products isArray" status="pass" classname="02 Assertions/Produktliste prüfen" time="0.025"/>
+    <testcase name="res.responseTime lt 2000" status="pass" classname="02 Assertions/Produktliste prüfen" time="0.025"/>
+  </testsuite>
+  <testsuite name="Coconut prüfen" file="02 Assertions/Coconut prüfen.yml" errors="0" failures="0" skipped="0" tests="6" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.100">
+    <testcase name="res.status eq 200" status="pass" classname="02 Assertions/Coconut prüfen" time="0.017"/>
+    <testcase name="res.body.name eq Coconut" status="pass" classname="02 Assertions/Coconut prüfen" time="0.017"/>
+    <testcase name="res.body.unit eq €" status="pass" classname="02 Assertions/Coconut prüfen" time="0.017"/>
+    <testcase name="res.body.price isNumber" status="pass" classname="02 Assertions/Coconut prüfen" time="0.017"/>
+    <testcase name="res.body.vendors isArray" status="pass" classname="02 Assertions/Coconut prüfen" time="0.017"/>
+    <testcase name="res.body.image_link endsWith /products/4/image" status="pass" classname="02 Assertions/Coconut prüfen" time="0.017"/>
+  </testsuite>
+  <testsuite name="Struktur der Produktliste" file="03 Test-Skripte/Struktur der Produktliste.yml" errors="0" failures="0" skipped="0" tests="4" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.164">
+    <testcase name="Status ist 200" status="pass" classname="03 Test-Skripte/Struktur der Produktliste" time="0.041"/>
+    <testcase name="Höchstens 3 Produkte (limit=3)" status="pass" classname="03 Test-Skripte/Struktur der Produktliste" time="0.041"/>
+    <testcase name="Jedes Produkt hat id, name und self_link" status="pass" classname="03 Test-Skripte/Struktur der Produktliste" time="0.041"/>
+    <testcase name="meta.limit spiegelt den Query-Parameter" status="pass" classname="03 Test-Skripte/Struktur der Produktliste" time="0.041"/>
+  </testsuite>
+  <testsuite name="Produktdetails" file="03 Test-Skripte/Produktdetails.yml" errors="0" failures="0" skipped="0" tests="4" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.166">
+    <testcase name="Pflichtfelder vorhanden" status="pass" classname="03 Test-Skripte/Produktdetails" time="0.041"/>
+    <testcase name="Preis liegt zwischen 0 und 1000" status="pass" classname="03 Test-Skripte/Produktdetails" time="0.041"/>
+    <testcase name="Response hat einen ETag-Header" status="pass" classname="03 Test-Skripte/Produktdetails" time="0.041"/>
+    <testcase name="Vendors haben id und name" status="pass" classname="03 Test-Skripte/Produktdetails" time="0.041"/>
+  </testsuite>
+  <testsuite name="Sortierung nach Name" file="04 Query-Parameter/Sortierung nach Name.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.143">
+    <testcase name="Namen sind aufsteigend sortiert" status="pass" classname="04 Query-Parameter/Sortierung nach Name" time="0.143"/>
+  </testsuite>
+  <testsuite name="Sortierung nach id absteigend" file="04 Query-Parameter/Sortierung nach id absteigend.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.149">
+    <testcase name="ids sind absteigend sortiert" status="pass" classname="04 Query-Parameter/Sortierung nach id absteigend" time="0.149"/>
+  </testsuite>
+  <testsuite name="Preisfilter" file="04 Query-Parameter/Preisfilter.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.885">
+    <testcase name="Filter liefert Treffer" status="pass" classname="04 Query-Parameter/Preisfilter" time="0.442"/>
+    <testcase name="Alle Preise sind kleiner als 2" status="pass" classname="04 Query-Parameter/Preisfilter" time="0.442"/>
+  </testsuite>
+  <testsuite name="Seite 1" file="04 Query-Parameter/Seite 1.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.263">
+    <testcase name="meta passt zu den Parametern" status="pass" classname="04 Query-Parameter/Seite 1" time="0.088"/>
+    <testcase name="Es gibt einen next_link" status="pass" classname="04 Query-Parameter/Seite 1" time="0.088"/>
+    <testcase name="Auf Seite 1 gibt es keinen previous_link" status="pass" classname="04 Query-Parameter/Seite 1" time="0.088"/>
+  </testsuite>
+  <testsuite name="Seite 2 über next_link" file="04 Query-Parameter/Seite 2 über next_link.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.193">
+    <testcase name="Seite 2 überschneidet sich nicht mit Seite 1" status="pass" classname="04 Query-Parameter/Seite 2 über next_link" time="0.097"/>
+    <testcase name="Seite 2 hat einen previous_link" status="pass" classname="04 Query-Parameter/Seite 2 über next_link" time="0.097"/>
+  </testsuite>
+  <testsuite name="Unbekanntes Produkt" file="05 Negativtests/Unbekanntes Produkt.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.178">
+    <testcase name="Status ist 404" status="pass" classname="05 Negativtests/Unbekanntes Produkt" time="0.089"/>
+    <testcase name="Fehlermeldung nennt die id" status="pass" classname="05 Negativtests/Unbekanntes Produkt" time="0.089"/>
+  </testsuite>
+  <testsuite name="Produkt ohne Preis" file="05 Negativtests/Produkt ohne Preis.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.123">
+    <testcase name="Status ist 400" status="pass" classname="05 Negativtests/Produkt ohne Preis" time="0.041"/>
+    <testcase name="Content-Type ist application/problem+json" status="pass" classname="05 Negativtests/Produkt ohne Preis" time="0.041"/>
+    <testcase name="Fehler betrifft das Feld price" status="pass" classname="05 Negativtests/Produkt ohne Preis" time="0.041"/>
+  </testsuite>
+  <testsuite name="Preis zu hoch" file="05 Negativtests/Preis zu hoch.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.193">
+    <testcase name="Status ist 400" status="pass" classname="05 Negativtests/Preis zu hoch" time="0.064"/>
+    <testcase name="Content-Type ist application/problem+json" status="pass" classname="05 Negativtests/Preis zu hoch" time="0.064"/>
+    <testcase name="Meldung nennt das Maximum" status="pass" classname="05 Negativtests/Preis zu hoch" time="0.064"/>
+  </testsuite>
+  <testsuite name="Name zu lang" file="05 Negativtests/Name zu lang.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.194">
+    <testcase name="Status ist 400" status="pass" classname="05 Negativtests/Name zu lang" time="0.065"/>
+    <testcase name="Content-Type ist application/problem+json" status="pass" classname="05 Negativtests/Name zu lang" time="0.065"/>
+    <testcase name="Fehler betrifft das Feld name" status="pass" classname="05 Negativtests/Name zu lang" time="0.065"/>
+  </testsuite>
+  <testsuite name="Produkt anlegen" file="06 CRUD mit Variablen/Produkt anlegen.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.166">
+    <testcase name="Status ist 201 Created" status="pass" classname="06 CRUD mit Variablen/Produkt anlegen" time="0.055"/>
+    <testcase name="Location-Header zeigt auf das neue Produkt" status="pass" classname="06 CRUD mit Variablen/Produkt anlegen" time="0.055"/>
+    <testcase name="Body enthält die gesendeten Daten" status="pass" classname="06 CRUD mit Variablen/Produkt anlegen" time="0.055"/>
+  </testsuite>
+  <testsuite name="Produkt lesen" file="06 CRUD mit Variablen/Produkt lesen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.124">
+    <testcase name="Produkt ist abrufbar" status="pass" classname="06 CRUD mit Variablen/Produkt lesen" time="0.124"/>
+  </testsuite>
+  <testsuite name="Produkt ersetzen" file="06 CRUD mit Variablen/Produkt ersetzen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.116">
+    <testcase name="PUT ersetzt Name und Preis" status="pass" classname="06 CRUD mit Variablen/Produkt ersetzen" time="0.116"/>
+  </testsuite>
+  <testsuite name="Preis ändern" file="06 CRUD mit Variablen/Preis ändern.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.122">
+    <testcase name="PATCH ändert nur den Preis" status="pass" classname="06 CRUD mit Variablen/Preis ändern" time="0.122"/>
+  </testsuite>
+  <testsuite name="Produkt löschen" file="06 CRUD mit Variablen/Produkt löschen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.077">
+    <testcase name="res.status eq 200" status="pass" classname="06 CRUD mit Variablen/Produkt löschen" time="0.077"/>
+  </testsuite>
+  <testsuite name="Gelöschtes Produkt" file="06 CRUD mit Variablen/Gelöschtes Produkt.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.076">
+    <testcase name="res.status eq 404" status="pass" classname="06 CRUD mit Variablen/Gelöschtes Produkt" time="0.076"/>
+  </testsuite>
+  <testsuite name="Produkt mit Zufallsdaten anlegen" file="07 Pre-Request-Skripte/Produkt mit Zufallsdaten anlegen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.225">
+    <testcase name="Server übernimmt die generierten Daten" status="pass" classname="07 Pre-Request-Skripte/Produkt mit Zufallsdaten anlegen" time="0.225"/>
+  </testsuite>
+  <testsuite name="Zufallsprodukt lesen" file="07 Pre-Request-Skripte/Zufallsprodukt lesen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.116">
+    <testcase name="Round-Trip: gelesene Daten = gesendete Daten" status="pass" classname="07 Pre-Request-Skripte/Zufallsprodukt lesen" time="0.116"/>
+  </testsuite>
+  <testsuite name="Aufräumen" file="07 Pre-Request-Skripte/Aufräumen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.075">
+    <testcase name="res.status eq 200" status="pass" classname="07 Pre-Request-Skripte/Aufräumen" time="0.075"/>
+  </testsuite>
+  <testsuite name="Produkt anlegen" file="08 ETag und If-Match/Produkt anlegen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.129">
+    <testcase name="res.status eq 201" status="pass" classname="08 ETag und If-Match/Produkt anlegen" time="0.129"/>
+  </testsuite>
+  <testsuite name="ETag merken" file="08 ETag und If-Match/ETag merken.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.159">
+    <testcase name="ETag vorhanden" status="pass" classname="08 ETag und If-Match/ETag merken" time="0.159"/>
+  </testsuite>
+  <testsuite name="Update mit gültigem ETag" file="08 ETag und If-Match/Update mit gültigem ETag.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.122">
+    <testcase name="Update erfolgreich" status="pass" classname="08 ETag und If-Match/Update mit gültigem ETag" time="0.061"/>
+    <testcase name="Neue Version hat einen neuen ETag" status="pass" classname="08 ETag und If-Match/Update mit gültigem ETag" time="0.061"/>
+  </testsuite>
+  <testsuite name="Update mit veraltetem ETag" file="08 ETag und If-Match/Update mit veraltetem ETag.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.117">
+    <testcase name="Veralteter ETag wird mit 412 abgelehnt" status="pass" classname="08 ETag und If-Match/Update mit veraltetem ETag" time="0.117"/>
+  </testsuite>
+  <testsuite name="Preis unverändert" file="08 ETag und If-Match/Preis unverändert.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.109">
+    <testcase name="Abgelehntes Update hat nichts verändert" status="pass" classname="08 ETag und If-Match/Preis unverändert" time="0.109"/>
+  </testsuite>
+  <testsuite name="Aufräumen" file="08 ETag und If-Match/Aufräumen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.077">
+    <testcase name="res.status eq 200" status="pass" classname="08 ETag und If-Match/Aufräumen" time="0.077"/>
+  </testsuite>
+  <testsuite name="Bestellung anlegen" file="09 Workflow und HATEOAS/Bestellung anlegen.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.172">
+    <testcase name="Bestellung ist angelegt" status="pass" classname="09 Workflow und HATEOAS/Bestellung anlegen" time="0.086"/>
+    <testcase name="Bestellung bietet purchase und cancel an" status="pass" classname="09 Workflow und HATEOAS/Bestellung anlegen" time="0.086"/>
+  </testsuite>
+  <testsuite name="Summe prüfen" file="09 Workflow und HATEOAS/Summe prüfen.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.288">
+    <testcase name="Bestellung hat 2 Positionen" status="pass" classname="09 Workflow und HATEOAS/Summe prüfen" time="0.144"/>
+    <testcase name="total entspricht der Summe der Positionen" status="pass" classname="09 Workflow und HATEOAS/Summe prüfen" time="0.144"/>
+  </testsuite>
+  <testsuite name="Bestellung kaufen" file="09 Workflow und HATEOAS/Bestellung kaufen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.153">
+    <testcase name="Status wechselt auf ORDERED" status="pass" classname="09 Workflow und HATEOAS/Bestellung kaufen" time="0.153"/>
+  </testsuite>
+  <testsuite name="Bestellung stornieren" file="09 Workflow und HATEOAS/Bestellung stornieren.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.126">
+    <testcase name="Status wechselt auf CANCELED" status="pass" classname="09 Workflow und HATEOAS/Bestellung stornieren" time="0.126"/>
+  </testsuite>
+  <testsuite name="Stornierte Bestellung kaufen" file="09 Workflow und HATEOAS/Stornierte Bestellung kaufen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.128">
+    <testcase name="Ungültiger Zustandsübergang wird mit 403 abgelehnt" status="pass" classname="09 Workflow und HATEOAS/Stornierte Bestellung kaufen" time="0.128"/>
+  </testsuite>
+  <testsuite name="API-Übersicht" file="10 Gemeinsame Skripte und Ablaufsteuerung/API-Übersicht.yml" errors="0" failures="0" skipped="0" tests="4" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.158">
+    <testcase name="Übersicht verlinkt die Produkte" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/API-Übersicht" time="0.040"/>
+    <testcase name="[Ordner] Kein Serverfehler" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/API-Übersicht" time="0.040"/>
+    <testcase name="[Ordner] Antwortzeit unter 2 Sekunden" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/API-Übersicht" time="0.040"/>
+    <testcase name="[Ordner] Antwort ist JSON" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/API-Übersicht" time="0.040"/>
+  </testsuite>
+  <testsuite name="Durian suchen" file="10 Gemeinsame Skripte und Ablaufsteuerung/Durian suchen.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.188">
+    <testcase name="[Ordner] Kein Serverfehler" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Durian suchen" time="0.063"/>
+    <testcase name="[Ordner] Antwortzeit unter 2 Sekunden" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Durian suchen" time="0.063"/>
+    <testcase name="[Ordner] Antwort ist JSON" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Durian suchen" time="0.063"/>
+  </testsuite>
+  <testsuite name="Durian Details" file="10 Gemeinsame Skripte und Ablaufsteuerung/Durian Details.yml" errors="0" failures="0" skipped="1" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.038">
+    <skipped message="Request Skipped"/>
+  </testsuite>
+  <testsuite name="Vendoren abrufen" file="10 Gemeinsame Skripte und Ablaufsteuerung/Vendoren abrufen.yml" errors="0" failures="0" skipped="0" tests="4" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.235">
+    <testcase name="Es gibt Vendoren" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Vendoren abrufen" time="0.059"/>
+    <testcase name="[Ordner] Kein Serverfehler" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Vendoren abrufen" time="0.059"/>
+    <testcase name="[Ordner] Antwortzeit unter 2 Sekunden" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Vendoren abrufen" time="0.059"/>
+    <testcase name="[Ordner] Antwort ist JSON" status="pass" classname="10 Gemeinsame Skripte und Ablaufsteuerung/Vendoren abrufen" time="0.059"/>
+  </testsuite>
+  <testsuite name="Produkt aus CSV anlegen" file="11 Datengetriebene Tests/Produkt aus CSV anlegen.yml" errors="0" failures="0" skipped="1" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.039">
+    <skipped message="Request Skipped"/>
+  </testsuite>
+  <testsuite name="CSV-Produkt löschen" file="11 Datengetriebene Tests/CSV-Produkt löschen.yml" errors="0" failures="0" skipped="1" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.038">
+    <skipped message="Request Skipped"/>
+  </testsuite>
+  <testsuite name="Grenzwerte aus CSV" file="11 Datengetriebene Tests/Grenzwerte aus CSV.yml" errors="0" failures="0" skipped="1" tests="0" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.038">
+    <skipped message="Request Skipped"/>
+  </testsuite>
+  <testsuite name="Produkt gegen Schema" file="12 Schema-Validierung/Produkt gegen Schema.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.130">
+    <testcase name="Produkt entspricht dem Product-Schema" status="pass" classname="12 Schema-Validierung/Produkt gegen Schema" time="0.130"/>
+  </testsuite>
+  <testsuite name="Produktliste gegen Schema" file="12 Schema-Validierung/Produktliste gegen Schema.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.125">
+    <testcase name="Liste entspricht dem Schema" status="pass" classname="12 Schema-Validierung/Produktliste gegen Schema" time="0.125"/>
+  </testsuite>
+  <testsuite name="404 gegen ProblemDetails" file="12 Schema-Validierung/404 gegen ProblemDetails.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.132">
+    <testcase name="Spec-Schema ist zu locker: auch die Spring-Fehlerseite ist 'gültig'" status="pass" classname="12 Schema-Validierung/404 gegen ProblemDetails" time="0.066"/>
+    <testcase name="Strenges Schema deckt die Abweichung zur Spec auf" status="pass" classname="12 Schema-Validierung/404 gegen ProblemDetails" time="0.066"/>
+  </testsuite>
+  <testsuite name="Basic Auth erfolgreich" file="13 Authentifizierung/Basic Auth erfolgreich.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.570">
+    <testcase name="Mit korrekten Credentials: 200" status="pass" classname="13 Authentifizierung/Basic Auth erfolgreich" time="0.570"/>
+  </testsuite>
+  <testsuite name="Basic Auth falsches Passwort" file="13 Authentifizierung/Basic Auth falsches Passwort.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.453">
+    <testcase name="res.status eq 401" status="pass" classname="13 Authentifizierung/Basic Auth falsches Passwort" time="0.453"/>
+  </testsuite>
+  <testsuite name="Ohne Credentials" file="13 Authentifizierung/Ohne Credentials.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.450">
+    <testcase name="res.status eq 401" status="pass" classname="13 Authentifizierung/Ohne Credentials" time="0.450"/>
+  </testsuite>
+  <testsuite name="Bearer Token" file="13 Authentifizierung/Bearer Token.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.586">
+    <testcase name="Token wird akzeptiert und zurückgegeben" status="pass" classname="13 Authentifizierung/Bearer Token" time="0.586"/>
+  </testsuite>
+  <testsuite name="Vendor anlegen" file="14 End-to-End-Szenario/Vendor anlegen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.205">
+    <testcase name="Vendor angelegt" status="pass" classname="14 End-to-End-Szenario/Vendor anlegen" time="0.205"/>
+  </testsuite>
+  <testsuite name="Produkt anlegen" file="14 End-to-End-Szenario/Produkt anlegen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.155">
+    <testcase name="res.status eq 201" status="pass" classname="14 End-to-End-Szenario/Produkt anlegen" time="0.155"/>
+  </testsuite>
+  <testsuite name="Produkt dem Vendor zuordnen" file="14 End-to-End-Szenario/Produkt dem Vendor zuordnen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.119">
+    <testcase name="res.status eq 200" status="pass" classname="14 End-to-End-Szenario/Produkt dem Vendor zuordnen" time="0.119"/>
+  </testsuite>
+  <testsuite name="Sortiment des Vendors prüfen" file="14 End-to-End-Szenario/Sortiment des Vendors prüfen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.162">
+    <testcase name="Vendor führt das neue Produkt" status="pass" classname="14 End-to-End-Szenario/Sortiment des Vendors prüfen" time="0.162"/>
+  </testsuite>
+  <testsuite name="Produkt kennt seinen Vendor" file="14 End-to-End-Szenario/Produkt kennt seinen Vendor.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.159">
+    <testcase name="Vendor ist am Produkt eingetragen" status="pass" classname="14 End-to-End-Szenario/Produkt kennt seinen Vendor" time="0.159"/>
+  </testsuite>
+  <testsuite name="Bestellung anlegen" file="14 End-to-End-Szenario/Bestellung anlegen.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.196">
+    <testcase name="Bestellung angelegt, total = 4 x 2.50" status="pass" classname="14 End-to-End-Szenario/Bestellung anlegen" time="0.196"/>
+  </testsuite>
+  <testsuite name="Bestellung kaufen" file="14 End-to-End-Szenario/Bestellung kaufen.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.113">
+    <testcase name="res.status eq 200" status="pass" classname="14 End-to-End-Szenario/Bestellung kaufen" time="0.057"/>
+    <testcase name="res.body.state eq ORDERED" status="pass" classname="14 End-to-End-Szenario/Bestellung kaufen" time="0.057"/>
+  </testsuite>
+  <testsuite name="Aufräumen Bestellung" file="14 End-to-End-Szenario/Aufräumen Bestellung.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.121">
+    <testcase name="res.body.state eq CANCELED" status="pass" classname="14 End-to-End-Szenario/Aufräumen Bestellung" time="0.121"/>
+  </testsuite>
+  <testsuite name="Aufräumen Produkt" file="14 End-to-End-Szenario/Aufräumen Produkt.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-24T13:38:59.761" hostname="Mac.digi.box" time="0.159">
+    <testcase name="res.status eq 200" status="pass" classname="14 End-to-End-Szenario/Aufräumen Produkt" time="0.159"/>
+  </testsuite>
+</testsuites>
